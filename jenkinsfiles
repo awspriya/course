@@ -4,7 +4,7 @@ stage("checkout code")
 {
 //git  "https://github.com/hanumak5957/course.git"
 checkout scm
-mvnhome= tool 'mymaven'
+mvnhome= tool 'testmvn'
 }
 stage('Build') {
  sh "'${mvnhome}/bin/mvn' package"
