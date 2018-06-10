@@ -1,11 +1,25 @@
-node {
+node 
+{                                              
 def mvnhome
-stage("checkout code")
+stage ("checkout code")
 {
-checkout scm
-mvnhome= tool 'testmvn'
+git 'https://github.com/hanumak5957/course.git'
+mvnhome=tool 'testmvn'
 }
-stage('Build') {
- sh "'${mvnhome}/bin/mvn' clean package"
+stage ("compile")
+{
+sh "'${mvnhome}/bin/mvn' compile"
 }
- }
+stage ("test")
+{
+sh "'${mvnhome}/bin/mvn' test"
+}
+stage ("Build")
+{
+sh "'${mvnhome}/bin/mvn' package"
+}
+stage ("Deploy")
+{
+sh  "cp  /var/lib/jenkins/workspace/newpipeline/target/course.war  /home/ec2-user/apache-tomcat-8.5.31/webapps/"
+}
+}
